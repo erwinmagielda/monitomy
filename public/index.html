@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ------------------------------------------------------------
+       DOCUMENT METADATA
+  ------------------------------------------------------------- -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Monitomy | Demo Surface</title>
+
+
+  <!-- ------------------------------------------------------------
+       CORE ASSETS
+  ------------------------------------------------------------- -->
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="styles.css" />
+
+
+  <!-- ------------------------------------------------------------
+       PRIORITY IMAGE PRELOADS
+  ------------------------------------------------------------- -->
+
+  <link rel="preload" as="image" href="monitomy.webp" fetchpriority="high" />
+</head>
+
+<body class="page-body">
+
+  <!-- ------------------------------------------------------------
+       SITE HEADER
+  ------------------------------------------------------------- -->
+
+  <header class="site-header">
+    <img
+      src="monitomy.webp"
+      alt="Monitomy logo"
+      class="site-logo"
+      fetchpriority="high"
+      decoding="async"
+    />
+
+    <div class="header-copy">
+      <p class="eyebrow">Monitomy Demo Surface</p>
+
+      <h1>Traffic Signal Monitor</h1>
+
+      <p class="intro">
+        A sample monitored landing page used to generate visits, click activity,
+        bot indicators, and engagement events for the Monitomy PHP/MySQL dashboard.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- ------------------------------------------------------------
+       PRIMARY CONTENT
+  ------------------------------------------------------------- -->
+
+  <main class="main-content">
+
+    <!-- ----------------------------------------------------------
+         DEMO EVENT ACTIONS
+    ----------------------------------------------------------- -->
+
+    <section class="panel actions-panel" aria-labelledby="actions-title">
+      <div class="section-heading">
+        <p class="eyebrow">Event Inputs</p>
+        <h2 id="actions-title">Tracked Actions</h2>
+        <p>
+          These controls simulate common landing-page events and submit them to
+          the local logger endpoint.
+        </p>
+      </div>
+
+      <div class="action-grid">
+        <a
+          href="#demo-store"
+          class="action-card primary-action"
+          data-track="shop"
+        >
+          <span>View Store</span>
+          <small>Records a shop click</small>
+        </a>
+
+        <a
+          href="#demo-subscribe"
+          class="action-card"
+          data-track="subscribe"
+        >
+          <span>Subscribe</span>
+          <small>Records a CTA click</small>
+        </a>
+
+        <a
+          href="#demo-play"
+          class="action-card"
+          data-track="spotify"
+        >
+          <span>Play Sample</span>
+          <small>Records an audio click</small>
+        </a>
+
+        <a
+          href="#demo-archive"
+          class="action-card"
+          data-track="bandcamp"
+        >
+          <span>Open Archive</span>
+          <small>Records an archive click</small>
+        </a>
+
+        <a
+          href="#demo-video"
+          class="action-card"
+          data-track="youtube"
+        >
+          <span>Watch Preview</span>
+          <small>Records a video click</small>
+        </a>
+
+        <a
+          href="#demo-contact"
+          class="action-card"
+          data-track="contact"
+        >
+          <span>Contact</span>
+          <small>Records a contact click</small>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------
+         ENGAGEMENT SIGNALS
+    ----------------------------------------------------------- -->
+
+    <section class="panel signals-panel" aria-labelledby="signals-title">
+      <div class="section-heading">
+        <p class="eyebrow">Engagement Inputs</p>
+        <h2 id="signals-title">Signal Selection</h2>
+        <p>
+          Selecting a signal records a named engagement event using the same
+          album-style format supported by the dashboard.
+        </p>
+      </div>
+
+      <div class="signal-grid">
+        <button
+          type="button"
+          class="signal-card active"
+          data-signal="Signal Alpha"
+        >
+          <span class="signal-code">A1</span>
+          <strong>Signal Alpha</strong>
+          <small>Primary engagement sample</small>
+        </button>
+
+        <button
+          type="button"
+          class="signal-card"
+          data-signal="Signal Beta"
+        >
+          <span class="signal-code">B2</span>
+          <strong>Signal Beta</strong>
+          <small>Secondary engagement sample</small>
+        </button>
+
+        <button
+          type="button"
+          class="signal-card"
+          data-signal="Signal Gamma"
+        >
+          <span class="signal-code">C3</span>
+          <strong>Signal Gamma</strong>
+          <small>Archive engagement sample</small>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ----------------------------------------------------------
+         MONITOR LINK
+    ----------------------------------------------------------- -->
+
+    <section class="panel monitor-panel" aria-labelledby="monitor-title">
+      <div class="section-heading">
+        <p class="eyebrow">Output</p>
+        <h2 id="monitor-title">Private Monitor</h2>
+        <p>
+          The events generated from this demo surface are stored by the PHP logger
+          and reviewed through the Monitomy dashboard.
+        </p>
+      </div>
+
+      <a href="monitomy.php" class="monitor-link">
+        Open Monitomy Dashboard
+      </a>
+    </section>
+
+  </main>
+
+
+  <!-- ------------------------------------------------------------
+       SITE FOOTER
+  ------------------------------------------------------------- -->
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <a
+        href="https://www.linkedin.com/in/erwinmagielda"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Built by Erwin Magielda © 2026 — All Rights Reserved
+      </a>
+    </div>
+  </footer>
+
+
+  <!-- ------------------------------------------------------------
+       TRACKING LOGIC
+  ------------------------------------------------------------- -->
+
+  <script>
+    function getLoggerEndpoint() {
+      return new URL("log.php", window.location.href).toString();
+    }
+
+    function sendTrackingEvent(payload) {
+      const body = JSON.stringify(payload);
+      const endpoint = getLoggerEndpoint();
+
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(endpoint, body);
+        return;
+      }
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: body,
+        keepalive: true
+      }).catch(() => {});
+    }
+
+    function trackClick(action) {
+      sendTrackingEvent({
+        type: "click",
+        action: action
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      sendTrackingEvent({
+        type: "visit"
+      });
+
+      document.querySelectorAll("[data-track]").forEach((element) => {
+        element.addEventListener("click", () => {
+          trackClick(element.dataset.track);
+        });
+      });
+
+      document.querySelectorAll("[data-signal]").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelector(".signal-card.active")?.classList.remove("active");
+          button.classList.add("active");
+
+          const signalName = button.dataset.signal || "Unknown Signal";
+          trackClick("album:" + signalName);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
