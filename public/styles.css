@@ -92,7 +92,7 @@ body.page-body {
 }
 
 .demo-description {
-  max-width: 540px;
+  max-width: 520px;
   margin: 8px auto 0;
   color: var(--colour-muted);
   font-size: 13px;
@@ -211,12 +211,14 @@ h2 {
 ------------------------------------------------------------ */
 
 .monitor-output {
-  width: var(--content-width);
+  width: 100%;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-self: center;
   gap: 10px;
-  margin: 18px auto 0;
+  margin: 4px auto 0;
   text-align: center;
 }
 
@@ -224,6 +226,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;
   min-height: 44px;
   padding: 0 20px;
   border: 1px solid rgba(254, 208, 2, 0.72);
@@ -258,6 +261,7 @@ h2 {
   color: var(--colour-muted);
   font-size: 12px;
   line-height: 1.6;
+  text-align: center;
 }
 
 
@@ -336,6 +340,10 @@ summary:focus-visible {
 
   .action-card {
     min-height: auto;
+  }
+
+  .monitor-output {
+    max-width: 100%;
   }
 
   .monitor-link {
