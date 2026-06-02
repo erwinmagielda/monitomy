@@ -92,7 +92,7 @@ body.page-body {
 }
 
 .demo-description {
-  max-width: 620px;
+  max-width: 540px;
   margin: 8px auto 0;
   color: var(--colour-muted);
   font-size: 13px;
@@ -146,7 +146,7 @@ h2 {
 }
 
 .section-note {
-  max-width: 760px;
+  max-width: 720px;
   margin-bottom: 14px;
   color: var(--colour-muted);
   font-size: 12px;
@@ -190,7 +190,11 @@ h2 {
 
 .action-card small {
   color: var(--colour-muted);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
 
 .action-card:hover,
@@ -203,8 +207,18 @@ h2 {
 
 
 /* ------------------------------------------------------------
-   MONITOR LINK
+   MONITOR OUTPUT
 ------------------------------------------------------------ */
+
+.monitor-output {
+  width: var(--content-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 18px auto 0;
+  text-align: center;
+}
 
 .monitor-link {
   display: inline-flex;
@@ -237,6 +251,13 @@ h2 {
   box-shadow:
     0 0 18px rgba(254, 208, 2, 0.42),
     0 0 52px rgba(254, 208, 2, 0.18);
+}
+
+.monitor-output p {
+  max-width: 560px;
+  color: var(--colour-muted);
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 

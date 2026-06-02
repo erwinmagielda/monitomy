@@ -46,8 +46,7 @@
     </div>
 
     <p class="demo-description">
-      Minimal PHP/MySQL event surface for logging visits, button clicks,
-      bot indicators, and dashboard-ready traffic signals.
+      Logs visits, button clicks, bot indicators, and dashboard-ready traffic data.
     </p>
   </header>
 
@@ -66,9 +65,8 @@
       <summary><h2>Event Surface</h2></summary>
 
       <p class="section-note">
-        This surface generates three representative frontend events for the Monitomy logger.
-        Each button looks generic, but each one maps to a different tracked signal category
-        stored in the database and reviewed through the dashboard.
+        Clicking a button sends a tracked event to the PHP logger, stores it in MySQL,
+        and makes it visible in the Monitomy dashboard.
       </p>
 
       <div class="action-grid">
@@ -78,7 +76,7 @@
           data-track="button_1"
         >
           <span>Button #1</span>
-          <small>Commercial intent signal</small>
+          <small>Commercial Intent Signal</small>
         </a>
 
         <a
@@ -87,7 +85,7 @@
           data-track="button_2"
         >
           <span>Button #2</span>
-          <small>Subscription intent signal</small>
+          <small>Subscription Intent Signal</small>
         </a>
 
         <a
@@ -96,30 +94,28 @@
           data-track="button_3"
         >
           <span>Button #3</span>
-          <small>External engagement signal</small>
+          <small>External Intent Signal</small>
         </a>
       </div>
     </details>
 
-
-    <!-- ----------------------------------------------------------
-         MONITOR OUTPUT
-    ----------------------------------------------------------- -->
-
-    <details class="card full" open>
-      <summary><h2>Monitor Output</h2></summary>
-
-      <p class="section-note">
-        Events generated here are submitted to the PHP logger, stored in MySQL,
-        and reviewed through the Monitomy dashboard.
-      </p>
-
-      <a href="monitomy.php" class="monitor-link">
-        Open Monitomy Dashboard
-      </a>
-    </details>
-
   </main>
+
+
+  <!-- ------------------------------------------------------------
+       MONITOR OUTPUT
+  ------------------------------------------------------------- -->
+
+  <section class="monitor-output" aria-label="Monitomy dashboard link">
+    <a href="monitomy.php" class="monitor-link">
+      Open Monitomy Dashboard
+    </a>
+
+    <p>
+      Events generated here are submitted to the PHP logger, stored in MySQL,
+      and reviewed through the dashboard.
+    </p>
+  </section>
 
 
   <!-- ------------------------------------------------------------
