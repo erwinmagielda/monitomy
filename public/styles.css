@@ -2,8 +2,8 @@
   Monitomy | Demo Surface Stylesheet
 
   Purpose:
-  Provides the public proof-of-concept landing surface used to generate
-  visit, click, and engagement events for the Monitomy traffic monitor.
+  Styles the public proof-of-concept surface used to generate visit,
+  click, and release-engagement events for the Monitomy dashboard.
 */
 
 
@@ -23,25 +23,22 @@
 ------------------------------------------------------------ */
 
 :root {
-  --colour-background: #080808;
-  --colour-surface: #111;
-  --colour-panel: #151515;
-  --colour-panel-soft: #1a1a1a;
-  --colour-border: #292929;
-  --colour-text: #f2f2f2;
-  --colour-muted: #a8a8a8;
+  --colour-background: #0b0b0b;
+  --colour-card: #151515;
+  --colour-panel: #101010;
+  --colour-panel-soft: #181818;
+  --colour-line: #2a2a2a;
+  --colour-text: #eeeeee;
+  --colour-muted: #aaaaaa;
   --colour-accent: #fed002;
-  --colour-accent-soft: rgba(254, 208, 2, 0.14);
-  --colour-accent-glow: rgba(254, 208, 2, 0.38);
+  --colour-real: #4caf50;
 
-  --radius-card: 18px;
-  --radius-panel: 14px;
+  --radius-card: 12px;
+  --radius-panel: 10px;
   --radius-pill: 999px;
 
   --content-width: min(1100px, calc(100% - 32px));
-
   --transition-fast: 150ms ease;
-  --transition-medium: 250ms ease;
 }
 
 
@@ -55,104 +52,106 @@ html {
 
 body.page-body {
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(254, 208, 2, 0.055), transparent 30rem),
+    var(--colour-background);
+  color: var(--colour-text);
+  font: 14px/1.4 system-ui, Arial, sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   MONITOMY HEADER
+------------------------------------------------------------ */
+
+.demo-hero {
+  width: var(--content-width);
   display: flex;
   flex-direction: column;
-  background:
-    radial-gradient(circle at top, rgba(254, 208, 2, 0.08), transparent 32rem),
-    linear-gradient(180deg, #0d0d0d 0%, var(--colour-background) 46%, #050505 100%);
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 26px 18px 18px;
+  text-align: center;
+}
+
+.demo-logo {
+  width: 160px;
+  height: auto;
+  max-height: 160px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 16px rgba(254, 208, 2, 0.14));
+}
+
+.demo-subtitle {
   color: var(--colour-text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+}
+
+.demo-description {
+  max-width: 620px;
+  margin: 8px auto 0;
+  color: var(--colour-muted);
+  font-size: 13px;
   line-height: 1.5;
 }
 
 
 /* ------------------------------------------------------------
-   HEADER
+   DASHBOARD GRID
 ------------------------------------------------------------ */
 
-.site-header {
+.dashboard-grid {
   width: var(--content-width);
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 28px;
-  align-items: center;
+  gap: 16px;
   margin: 0 auto;
-  padding: 48px 0 28px;
 }
 
-.site-logo {
-  width: 180px;
-  height: auto;
-  max-height: 180px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(254, 208, 2, 0.16));
-}
-
-.header-copy {
-  max-width: 760px;
-}
-
-.eyebrow {
-  color: var(--colour-accent);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-}
-
-.header-copy h1 {
-  margin-top: 8px;
-  font-size: clamp(36px, 7vw, 72px);
-  line-height: 0.95;
-  letter-spacing: -2px;
-}
-
-.intro {
-  max-width: 680px;
-  margin-top: 16px;
-  color: var(--colour-muted);
-  font-size: 16px;
-}
-
-
-/* ------------------------------------------------------------
-   MAIN LAYOUT
------------------------------------------------------------- */
-
-.main-content {
-  width: var(--content-width);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
-  margin: 0 auto;
-  padding-bottom: 8px;
-}
-
-.panel {
-  border: 1px solid var(--colour-border);
+.card {
+  padding: 16px;
+  border: 1px solid var(--colour-line);
   border-radius: var(--radius-card);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
-    var(--colour-surface);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
-  padding: 22px;
+  background: var(--colour-card);
 }
 
-.section-heading {
-  max-width: 720px;
-  margin-bottom: 18px;
+.full {
+  grid-column: 1 / -1;
 }
 
-.section-heading h2 {
-  margin-top: 4px;
-  font-size: 24px;
-  line-height: 1.1;
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity var(--transition-fast);
 }
 
-.section-heading p:not(.eyebrow) {
-  margin-top: 8px;
+summary h2 {
+  display: inline;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary {
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0 0 10px;
+  color: var(--colour-accent);
+}
+
+.section-note {
+  max-width: 760px;
+  margin-bottom: 14px;
   color: var(--colour-muted);
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 
@@ -162,18 +161,18 @@ body.page-body {
 
 .action-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 12px;
 }
 
 .action-card {
-  min-height: 104px;
+  min-height: 96px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 18px;
-  padding: 16px;
-  border: 1px solid var(--colour-border);
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--colour-line);
   border-radius: var(--radius-panel);
   background: var(--colour-panel);
   color: var(--colour-text);
@@ -204,34 +203,31 @@ body.page-body {
 }
 
 .primary-action {
-  border-color: rgba(254, 208, 2, 0.75);
-  background:
-    radial-gradient(circle at top right, rgba(254, 208, 2, 0.18), transparent 16rem),
-    var(--colour-panel);
+  border-color: rgba(254, 208, 2, 0.72);
   box-shadow:
-    0 0 18px rgba(254, 208, 2, 0.14),
-    0 0 46px rgba(254, 208, 2, 0.06);
+    0 0 18px rgba(254, 208, 2, 0.12),
+    0 0 44px rgba(254, 208, 2, 0.05);
 }
 
 
 /* ------------------------------------------------------------
-   SIGNAL SELECTION
+   RELEASE SELECTION
 ------------------------------------------------------------ */
 
-.signal-grid {
+.release-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 12px;
 }
 
-.signal-card {
-  min-height: 130px;
+.release-card {
+  min-height: 116px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  padding: 16px;
-  border: 1px solid var(--colour-border);
+  padding: 14px;
+  border: 1px solid var(--colour-line);
   border-radius: var(--radius-panel);
   background: var(--colour-panel);
   color: var(--colour-text);
@@ -244,18 +240,16 @@ body.page-body {
     box-shadow var(--transition-fast);
 }
 
-.signal-card:hover,
-.signal-card:active,
-.signal-card.active {
+.release-card:hover,
+.release-card:active,
+.release-card.active {
   transform: translateY(-2px);
-  border-color: rgba(254, 208, 2, 0.65);
-  background:
-    radial-gradient(circle at top right, rgba(254, 208, 2, 0.13), transparent 14rem),
-    var(--colour-panel-soft);
-  box-shadow: 0 0 26px rgba(254, 208, 2, 0.08);
+  border-color: rgba(254, 208, 2, 0.62);
+  background: var(--colour-panel-soft);
+  box-shadow: 0 0 24px rgba(254, 208, 2, 0.08);
 }
 
-.signal-code {
+.release-code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -270,11 +264,11 @@ body.page-body {
   letter-spacing: 0.8px;
 }
 
-.signal-card strong {
+.release-card strong {
   font-size: 18px;
 }
 
-.signal-card small {
+.release-card small {
   color: var(--colour-muted);
   font-size: 12px;
 }
@@ -284,28 +278,17 @@ body.page-body {
    MONITOR LINK
 ------------------------------------------------------------ */
 
-.monitor-panel {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 18px;
-  align-items: center;
-}
-
-.monitor-panel .section-heading {
-  margin-bottom: 0;
-}
-
 .monitor-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0 22px;
-  border: 1px solid rgba(254, 208, 2, 0.7);
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid rgba(254, 208, 2, 0.72);
   border-radius: var(--radius-pill);
   background: var(--colour-accent);
-  color: #000;
-  font-size: 13px;
+  color: #000000;
+  font-size: 12px;
   font-weight: 900;
   text-decoration: none;
   text-transform: uppercase;
@@ -334,7 +317,8 @@ body.page-body {
 ------------------------------------------------------------ */
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 2px solid var(--colour-accent);
   outline-offset: 3px;
 }
@@ -380,63 +364,30 @@ button:focus-visible {
    RESPONSIVE LAYOUT
 ------------------------------------------------------------ */
 
-@media (max-width: 860px) {
-  .site-header {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 18px;
-    padding-top: 34px;
-    text-align: center;
-  }
-
-  .site-logo {
-    width: 140px;
-    max-height: 140px;
-  }
-
-  .intro {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .action-grid,
-  .signal-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .monitor-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .monitor-link {
-    width: 100%;
-  }
-}
-
-@media (max-width: 520px) {
+@media (max-width: 720px) {
   :root {
     --content-width: min(100% - 24px, 1100px);
   }
 
-  .site-header {
-    padding-top: 26px;
+  .demo-hero {
+    padding: 18px 12px 16px;
   }
 
-  .site-logo {
-    width: 118px;
-    max-height: 118px;
+  .demo-logo {
+    width: 120px;
+    max-height: 120px;
   }
 
-  .header-copy h1 {
-    letter-spacing: -1px;
-  }
-
-  .panel {
-    padding: 16px;
+  .card {
+    padding: 14px;
   }
 
   .action-card,
-  .signal-card {
+  .release-card {
     min-height: auto;
+  }
+
+  .monitor-link {
+    width: 100%;
   }
 }
