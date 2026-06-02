@@ -3,12 +3,11 @@
   Monitomy | Configuration Loader
 
   Purpose:
-  Loads database and dashboard credentials from the public proof-of-concept
-  credentials template.
+  Loads database and dashboard credentials from credentials.json.
 
   Deployment note:
-  - config/credentials.json contains dummy/example values in the public repo.
-  - For a real deployment, replace those values with private server credentials.
+  - For the public GitHub proof-of-concept, config/credentials.json is a dummy template.
+  - For a cPanel demo deployment, copy credentials.json into the same folder as this file.
   - Do not commit real production credentials.
 */
 
@@ -25,7 +24,7 @@ error_reporting(E_ALL);
 // CONFIGURATION PATH
 // ------------------------------------------------------------
 
-$credentialsPath = dirname(__DIR__) . '/config/credentials.json';
+$credentialsPath = __DIR__ . '/credentials.json';
 
 
 // ------------------------------------------------------------
