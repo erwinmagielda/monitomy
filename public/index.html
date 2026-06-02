@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Monitomy | PoC Event Surface</title>
+  <title>Monitomy | Event Surface</title>
 
 
   <!-- ------------------------------------------------------------
@@ -32,7 +32,7 @@
        MONITOMY HEADER
   ------------------------------------------------------------- -->
 
-  <header class="demo-hero" aria-label="Monitomy PoC Event Surface">
+  <header class="demo-hero" aria-label="Monitomy Event Surface">
     <img
       src="monitomy.webp"
       alt="Monitomy logo"
@@ -46,8 +46,8 @@
     </div>
 
     <p class="demo-description">
-      Minimal PHP/MySQL proof-of-concept for logging visits, CTA clicks,
-      store intent, and external engagement.
+      Minimal PHP/MySQL event surface for logging visits, button clicks,
+      bot indicators, and dashboard-ready traffic signals.
     </p>
   </header>
 
@@ -63,40 +63,40 @@
     ----------------------------------------------------------- -->
 
     <details class="card full" open>
-      <summary><h2>PoC Event Surface</h2></summary>
+      <summary><h2>Event Surface</h2></summary>
 
       <p class="section-note">
-        This small surface generates representative events for the Monitomy logger.
-        It mirrors the monitoring flow used by the live deployment without exposing
-        production traffic, release data, or the original website.
+        This surface generates representative frontend events for the Monitomy logger.
+        Each button records a different action type so the database and dashboard flow
+        can be tested without exposing production traffic or the original website.
       </p>
 
       <div class="action-grid">
         <a
-          href="#shop"
+          href="#button-1"
           class="action-card primary-action"
           data-track="shop"
         >
-          <span>Shop</span>
-          <small>Commercial intent signal</small>
+          <span>Button #1</span>
+          <small>Records a shop action</small>
         </a>
 
         <a
-          href="#subscribe"
+          href="#button-2"
           class="action-card"
           data-track="subscribe"
         >
-          <span>Subscribe</span>
-          <small>Call-to-action signal</small>
+          <span>Button #2</span>
+          <small>Records a subscribe action</small>
         </a>
 
         <a
-          href="#spotify"
+          href="#button-3"
           class="action-card"
           data-track="spotify"
         >
-          <span>Spotify</span>
-          <small>External engagement signal</small>
+          <span>Button #3</span>
+          <small>Records a Spotify action</small>
         </a>
       </div>
     </details>
