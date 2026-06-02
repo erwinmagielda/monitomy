@@ -66,9 +66,9 @@
       <summary><h2>Event Surface</h2></summary>
 
       <p class="section-note">
-        This surface generates representative frontend events for the Monitomy logger.
-        Each button records a different action type so the database and dashboard flow
-        can be tested without exposing production traffic or the original website.
+        This surface generates three representative frontend events for the Monitomy logger.
+        Each button looks generic, but each one maps to a different tracked signal category
+        stored in the database and reviewed through the dashboard.
       </p>
 
       <div class="action-grid">
@@ -78,7 +78,7 @@
           data-track="shop"
         >
           <span>Button #1</span>
-          <small>Records a shop action</small>
+          <small>Commercial intent signal</small>
         </a>
 
         <a
@@ -87,7 +87,7 @@
           data-track="subscribe"
         >
           <span>Button #2</span>
-          <small>Records a subscribe action</small>
+          <small>Subscription intent signal</small>
         </a>
 
         <a
@@ -96,7 +96,7 @@
           data-track="spotify"
         >
           <span>Button #3</span>
-          <small>Records a Spotify action</small>
+          <small>External engagement signal</small>
         </a>
       </div>
     </details>
