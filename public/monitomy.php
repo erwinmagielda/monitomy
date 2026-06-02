@@ -397,14 +397,14 @@ function formatClickAction(string $button): string {
   $normalised = strtolower($raw);
 
   if (strpos($normalised, 'album:') === 0) {
-    return 'Signal → ' . substr($raw, 6);
+    return 'Album → ' . substr($raw, 6);
   }
 
   $labels = [
-    'shop' => 'View Store',
-    'spotify' => 'Play Sample',
-    'youtube' => 'Watch Preview',
-    'bandcamp' => 'Open Archive',
+    'shop' => 'Shop',
+    'spotify' => 'Spotify',
+    'youtube' => 'YouTube',
+    'bandcamp' => 'Bandcamp',
     'instagram' => 'Instagram',
     'chains' => 'Chains',
     'subscribe' => 'Subscribe',
