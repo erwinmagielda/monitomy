@@ -11,6 +11,11 @@
 -- - Contains no real visitor data.
 -- - Intended for screenshots, local demos, and README evidence.
 --
+-- Event categories:
+-- - button_1: commercial intent signal
+-- - button_2: subscription intent signal
+-- - button_3: external engagement signal
+--
 -- Example IP ranges used:
 -- - 192.0.2.0/24
 -- - 198.51.100.0/24
@@ -19,14 +24,15 @@
 
 
 -- ------------------------------------------------------------
--- OPTIONAL CLEANUP
+-- RESET SAMPLE DATA
 -- ------------------------------------------------------------
---
--- Uncomment these lines if you want to reset demo data before import.
---
--- DELETE FROM clicks;
--- DELETE FROM visits;
--- DELETE FROM ip_geo;
+
+DELETE FROM clicks;
+DELETE FROM visits;
+DELETE FROM ip_geo;
+
+ALTER TABLE clicks AUTO_INCREMENT = 1;
+ALTER TABLE visits AUTO_INCREMENT = 1;
 
 
 -- ------------------------------------------------------------
@@ -65,29 +71,29 @@ INSERT INTO visits (ip, user_agent, geo, ts) VALUES
 -- ------------------------------------------------------------
 
 INSERT INTO clicks (ip, button, ts) VALUES
-  ('203.0.113.10', 'shop', NOW() - INTERVAL 13 DAY),
-  ('203.0.113.11', 'subscribe', NOW() - INTERVAL 12 DAY),
-  ('203.0.113.12', 'spotify', NOW() - INTERVAL 11 DAY),
-  ('198.51.100.21', 'shop', NOW() - INTERVAL 10 DAY),
-  ('198.51.100.22', 'subscribe', NOW() - INTERVAL 9 DAY),
+  ('203.0.113.10', 'button_1', NOW() - INTERVAL 13 DAY),
+  ('203.0.113.11', 'button_2', NOW() - INTERVAL 12 DAY),
+  ('203.0.113.12', 'button_3', NOW() - INTERVAL 11 DAY),
+  ('198.51.100.21', 'button_1', NOW() - INTERVAL 10 DAY),
+  ('198.51.100.22', 'button_2', NOW() - INTERVAL 9 DAY),
 
-  ('203.0.113.10', 'spotify', NOW() - INTERVAL 8 DAY),
-  ('203.0.113.13', 'shop', NOW() - INTERVAL 7 DAY),
-  ('198.51.100.23', 'subscribe', NOW() - INTERVAL 6 DAY),
-  ('192.0.2.30', 'spotify', NOW() - INTERVAL 5 DAY),
-  ('192.0.2.31', 'shop', NOW() - INTERVAL 4 DAY),
+  ('203.0.113.10', 'button_3', NOW() - INTERVAL 8 DAY),
+  ('203.0.113.13', 'button_1', NOW() - INTERVAL 7 DAY),
+  ('198.51.100.23', 'button_2', NOW() - INTERVAL 6 DAY),
+  ('192.0.2.30', 'button_3', NOW() - INTERVAL 5 DAY),
+  ('192.0.2.31', 'button_1', NOW() - INTERVAL 4 DAY),
 
-  ('203.0.113.14', 'subscribe', NOW() - INTERVAL 3 DAY),
-  ('203.0.113.15', 'shop', NOW() - INTERVAL 2 DAY),
-  ('203.0.113.16', 'spotify', NOW() - INTERVAL 1 DAY),
-  ('203.0.113.17', 'shop', NOW()),
+  ('203.0.113.14', 'button_2', NOW() - INTERVAL 3 DAY),
+  ('203.0.113.15', 'button_1', NOW() - INTERVAL 2 DAY),
+  ('203.0.113.16', 'button_3', NOW() - INTERVAL 1 DAY),
+  ('203.0.113.17', 'button_1', NOW()),
 
   -- Additional recent interactions for dashboard density.
-  ('203.0.113.17', 'subscribe', NOW() - INTERVAL 3 HOUR),
-  ('203.0.113.17', 'shop', NOW() - INTERVAL 2 HOUR),
-  ('203.0.113.16', 'spotify', NOW() - INTERVAL 90 MINUTE),
-  ('203.0.113.15', 'subscribe', NOW() - INTERVAL 40 MINUTE),
-  ('203.0.113.14', 'shop', NOW() - INTERVAL 20 MINUTE);
+  ('203.0.113.17', 'button_2', NOW() - INTERVAL 3 HOUR),
+  ('203.0.113.17', 'button_1', NOW() - INTERVAL 2 HOUR),
+  ('203.0.113.16', 'button_3', NOW() - INTERVAL 90 MINUTE),
+  ('203.0.113.15', 'button_2', NOW() - INTERVAL 40 MINUTE),
+  ('203.0.113.14', 'button_1', NOW() - INTERVAL 20 MINUTE);
 
 
 -- ------------------------------------------------------------

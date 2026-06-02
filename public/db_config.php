@@ -6,8 +6,8 @@
   Loads database and dashboard credentials from credentials.json.
 
   Deployment note:
-  - For the public GitHub proof-of-concept, config/credentials.json is a dummy template.
-  - For a cPanel demo deployment, copy credentials.json into the same folder as this file.
+  - public/credentials.json contains dummy/example values in the public repo.
+  - For a real deployment, replace those values with private server credentials.
   - Do not commit real production credentials.
 */
 

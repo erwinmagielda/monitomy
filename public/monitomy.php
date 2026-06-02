@@ -3,9 +3,9 @@
   Monitomy | Traffic Signal Monitor
 
   Purpose:
-  Provides visibility into visit activity, click events, bot indicators,
-  geolocation cache data, and engagement signals collected through a
-  PHP/MySQL logging workflow.
+  Provides visibility into visit activity, button events, bot indicators,
+  geolocation cache data, and dashboard-ready traffic signals collected
+  through a PHP/MySQL logging workflow.
 
   Data sources:
   - visits table: ip, ts, user_agent, geo
@@ -207,10 +207,10 @@ function getCoreMetrics(mysqli $mysqli): array {
     FROM visits
   ");
 
-  $shopClicks = fetchScalar($mysqli, "
+  $primaryActions = fetchScalar($mysqli, "
     SELECT COUNT(*) AS c
     FROM clicks
-    WHERE LOWER(button) = 'shop'
+    WHERE LOWER(button) = 'button_1'
   ");
 
   $realUsers = fetchScalar($mysqli, "
@@ -226,14 +226,14 @@ function getCoreMetrics(mysqli $mysqli): array {
   );
 
   $conversionRate = $uniqueVisitors > 0
-    ? round(100 * $shopClicks / $uniqueVisitors, 1)
+    ? round(100 * $primaryActions / $uniqueVisitors, 1)
     : 0;
 
   return [
     'totalVisits' => $totalVisits,
     'totalClicks' => $totalClicks,
     'uniqueVisitors' => $uniqueVisitors,
-    'shopClicks' => $shopClicks,
+    'primaryActions' => $primaryActions,
     'realUsers' => $realUsers,
     'botVisitors' => $botVisitors,
     'conversionRate' => $conversionRate
@@ -398,19 +398,10 @@ function formatClickAction(string $button): string {
   $raw = trim($button);
   $normalised = strtolower($raw);
 
-  if (strpos($normalised, 'album:') === 0) {
-    return 'Album → ' . substr($raw, 6);
-  }
-
   $labels = [
-    'shop' => 'Shop',
-    'subscribe' => 'Subscribe',
-    'spotify' => 'Spotify',
-    'youtube' => 'YouTube',
-    'bandcamp' => 'Bandcamp',
-    'instagram' => 'Instagram',
-    'chains' => 'Chains',
-    'contact' => 'Contact'
+    'button_1' => 'Button #1 → Commercial intent',
+    'button_2' => 'Button #2 → Subscription intent',
+    'button_3' => 'Button #3 → External engagement'
   ];
 
   return $labels[$normalised] ?? 'Other → ' . $raw;
@@ -588,19 +579,10 @@ $recentVisits = fetchRows($mysqli, "
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- ----------------------------------------------------------
-       DOCUMENT METADATA
-  ----------------------------------------------------------- -->
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <title>Monitomy | Traffic Signal Monitor</title>
-
-
-  <!-- ----------------------------------------------------------
-       DASHBOARD STYLES
-  ----------------------------------------------------------- -->
 
   <style>
     :root {
@@ -720,10 +702,6 @@ $recentVisits = fetchRows($mysqli, "
       color: var(--colour-accent);
       font-weight: 600;
       text-align: left;
-    }
-
-    h1 {
-      margin: 0 0 12px;
     }
 
     h2 {
@@ -871,10 +849,6 @@ $recentVisits = fetchRows($mysqli, "
 
   <div class="grid">
 
-    <!-- --------------------------------------------------------
-         MONITOMY HEADER
-    --------------------------------------------------------- -->
-
     <section class="full dashboard-hero" aria-label="Monitomy Traffic Signal Monitor">
       <img
         src="monitomy.webp"
@@ -889,14 +863,10 @@ $recentVisits = fetchRows($mysqli, "
       </div>
 
       <p class="dashboard-description">
-        PHP/MySQL traffic monitor for visits, clicks, bot indicators, and engagement signals.
+        PHP/MySQL traffic monitor for visits, button events, bot indicators, and traffic signals.
       </p>
     </section>
 
-
-    <!-- --------------------------------------------------------
-         TRAFFIC OVERVIEW
-    --------------------------------------------------------- -->
 
     <details class="card full" open>
       <summary><h2>Traffic Overview</h2></summary>
@@ -928,12 +898,12 @@ $recentVisits = fetchRows($mysqli, "
         </div>
 
         <div class="kpi">
-          <div>Shop Clicks</div>
-          <b><?= (int)$metrics['shopClicks'] ?></b>
+          <div>Primary Actions</div>
+          <b><?= (int)$metrics['primaryActions'] ?></b>
         </div>
 
         <div class="kpi">
-          <div>Conversion Rate</div>
+          <div>Action Rate</div>
           <b><?= h($metrics['conversionRate']) ?>%</b>
         </div>
       </div>
@@ -951,10 +921,6 @@ $recentVisits = fetchRows($mysqli, "
       <canvas id="visitsChart"></canvas>
     </details>
 
-
-    <!-- --------------------------------------------------------
-         TOP VISITORS
-    --------------------------------------------------------- -->
 
     <details class="card">
       <summary><h2>Top Visitors</h2></summary>
@@ -982,10 +948,6 @@ $recentVisits = fetchRows($mysqli, "
       </table>
     </details>
 
-
-    <!-- --------------------------------------------------------
-         BOT TRAFFIC
-    --------------------------------------------------------- -->
 
     <details class="card">
       <summary><h2>Bot Activity</h2></summary>
@@ -1016,10 +978,6 @@ $recentVisits = fetchRows($mysqli, "
     </details>
 
 
-    <!-- --------------------------------------------------------
-         RECENT CLICKS
-    --------------------------------------------------------- -->
-
     <details class="card">
       <summary><h2>Recent Clicks</h2></summary>
 
@@ -1049,10 +1007,6 @@ $recentVisits = fetchRows($mysqli, "
     </details>
 
 
-    <!-- --------------------------------------------------------
-         RECENT VISITS
-    --------------------------------------------------------- -->
-
     <details class="card">
       <summary><h2>Recent Visits</h2></summary>
 
@@ -1079,15 +1033,11 @@ $recentVisits = fetchRows($mysqli, "
     </details>
 
 
-    <!-- --------------------------------------------------------
-         IMPLEMENTED CONTROLS
-    --------------------------------------------------------- -->
-
     <details class="card full">
       <summary><h2>Implemented Controls</h2></summary>
 
       <p class="muted" style="margin-bottom:10px;">
-        Security and reliability controls implemented across the monitor, public logger,
+        Security and reliability controls implemented across the monitor, logger,
         configuration loader, and Apache access rules.
       </p>
 
@@ -1119,10 +1069,6 @@ $recentVisits = fetchRows($mysqli, "
   </div>
 
 
-  <!-- ----------------------------------------------------------
-       FOOTER
-  ----------------------------------------------------------- -->
-
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <a
@@ -1131,15 +1077,11 @@ $recentVisits = fetchRows($mysqli, "
         target="_blank"
         rel="noopener noreferrer"
       >
-        Built by Erwin Magielda © 2026 — All Rights Reserved
+        Built by Erwin Magielda © 2026 - All Rights Reserved
       </a>
     </div>
   </footer>
 
-
-  <!-- ----------------------------------------------------------
-       DASHBOARD CHART
-  ----------------------------------------------------------- -->
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
