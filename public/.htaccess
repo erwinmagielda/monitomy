@@ -1,0 +1,58 @@
+# ------------------------------------------------------------
+# Monitomy | Apache Access Rules
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+# DIRECTORY LISTING
+# ------------------------------------------------------------
+
+Options -Indexes
+
+
+# ------------------------------------------------------------
+# PROTECT CONFIGURATION FILES
+# ------------------------------------------------------------
+
+<FilesMatch "^(db_config)\.php$">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "^\.htaccess$">
+  Require all denied
+</FilesMatch>
+
+
+# ------------------------------------------------------------
+# PROTECT GIT METADATA IF PRESENT
+# ------------------------------------------------------------
+
+RedirectMatch 404 /\.git
+
+
+# ------------------------------------------------------------
+# BASIC SECURITY HEADERS
+# ------------------------------------------------------------
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+
+# ------------------------------------------------------------
+# STATIC ASSET CACHING
+# ------------------------------------------------------------
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
