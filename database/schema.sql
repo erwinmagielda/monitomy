@@ -1,0 +1,67 @@
+-- ------------------------------------------------------------
+-- Monitomy | Traffic Signal Monitor Schema
+-- ------------------------------------------------------------
+--
+-- Purpose:
+-- Defines the MySQL tables required by the Monitomy proof-of-concept.
+--
+-- Tables:
+-- - visits: stores visit events captured by the public logger
+-- - clicks: stores tracked click and engagement events
+-- - ip_geo: caches IP geolocation lookups for dashboard display
+--
+-- Notes:
+-- - This schema is designed for a small PHP/MySQL demo deployment.
+-- - No real visitor data is included in this file.
+-- - Use sample_data.sql to populate the dashboard with fake PoC records.
+-- ------------------------------------------------------------
+
+
+-- ------------------------------------------------------------
+-- VISITS
+-- ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS visits (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  ip VARCHAR(45) NOT NULL,
+  user_agent TEXT NOT NULL,
+  geo VARCHAR(255) DEFAULT NULL,
+  ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (id),
+  INDEX idx_visits_ip (ip),
+  INDEX idx_visits_ts (ts)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- ------------------------------------------------------------
+-- CLICKS
+-- ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS clicks (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  ip VARCHAR(45) NOT NULL,
+  button VARCHAR(120) NOT NULL,
+  ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (id),
+  INDEX idx_clicks_ip (ip),
+  INDEX idx_clicks_button (button),
+  INDEX idx_clicks_ts (ts)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- ------------------------------------------------------------
+-- IP GEOLOCATION CACHE
+-- ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS ip_geo (
+  ip VARCHAR(45) NOT NULL,
+  country VARCHAR(120) DEFAULT NULL,
+  city VARCHAR(120) DEFAULT NULL,
+  last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (ip),
+  INDEX idx_ip_geo_country (country),
+  INDEX idx_ip_geo_city (city)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
