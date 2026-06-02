@@ -55,16 +55,16 @@
        PRIMARY CONTENT
   ------------------------------------------------------------- -->
 
-  <main class="dashboard-grid">
+  <main class="event-layout">
 
     <!-- ----------------------------------------------------------
          EVENT SURFACE
     ----------------------------------------------------------- -->
 
-    <details class="card full" open>
-      <summary><h2>Event Surface</h2></summary>
+    <section class="event-surface" aria-labelledby="event-surface-title">
+      <h1 id="event-surface-title">Event Surface</h1>
 
-      <p class="section-note">
+      <p class="surface-note">
         Clicking a button sends a tracked event to the PHP logger, stores it in MySQL,
         and makes it visible in the Monitomy dashboard.
       </p>
@@ -97,11 +97,11 @@
           <small>External Intent Signal</small>
         </a>
       </div>
-    </details>
+    </section>
 
 
     <!-- ----------------------------------------------------------
-        MONITOR OUTPUT
+         MONITOR OUTPUT
     ----------------------------------------------------------- -->
 
     <section class="monitor-output" aria-label="Monitomy dashboard link">
@@ -114,6 +114,8 @@
         and reviewed through the dashboard.
       </p>
     </section>
+
+  </main>
 
 
   <!-- ------------------------------------------------------------

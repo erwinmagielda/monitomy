@@ -24,7 +24,6 @@
 
 :root {
   --colour-background: #0b0b0b;
-  --colour-card: #151515;
   --colour-panel: #101010;
   --colour-panel-soft: #181818;
   --colour-line: #2a2a2a;
@@ -32,7 +31,6 @@
   --colour-muted: #aaaaaa;
   --colour-accent: #fed002;
 
-  --radius-card: 12px;
   --radius-panel: 10px;
   --radius-pill: 999px;
 
@@ -101,56 +99,43 @@ body.page-body {
 
 
 /* ------------------------------------------------------------
-   DASHBOARD GRID
+   MAIN LAYOUT
 ------------------------------------------------------------ */
 
-.dashboard-grid {
+.event-layout {
   width: var(--content-width);
   display: grid;
-  gap: 16px;
+  gap: 18px;
   margin: 0 auto;
 }
 
-.card {
-  padding: 16px;
-  border: 1px solid var(--colour-line);
-  border-radius: var(--radius-card);
-  background: var(--colour-card);
+
+/* ------------------------------------------------------------
+   EVENT SURFACE
+------------------------------------------------------------ */
+
+.event-surface {
+  width: 100%;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
 }
 
-.full {
-  grid-column: 1 / -1;
-}
-
-summary {
-  cursor: pointer;
-  font-weight: 600;
-  transition: opacity var(--transition-fast);
-}
-
-summary h2 {
-  display: inline;
-}
-
-summary::-webkit-details-marker {
-  display: none;
-}
-
-details[open] summary {
+.event-surface h1 {
   margin-bottom: 10px;
-}
-
-h2 {
-  margin: 0 0 10px;
   color: var(--colour-accent);
+  font-size: 22px;
+  line-height: 1.1;
+  text-align: center;
 }
 
-.section-note {
-  max-width: 720px;
-  margin-bottom: 14px;
+.surface-note {
+  max-width: 680px;
+  margin: 0 auto 14px;
   color: var(--colour-muted);
   font-size: 12px;
   line-height: 1.6;
+  text-align: center;
 }
 
 
@@ -218,7 +203,7 @@ h2 {
   align-items: center;
   justify-self: center;
   gap: 12px;
-  margin: 2px auto 0;
+  margin: 4px auto 0;
   padding: 0 12px;
   text-align: center;
 }
@@ -272,8 +257,7 @@ h2 {
    ACCESSIBILITY
 ------------------------------------------------------------ */
 
-a:focus-visible,
-summary:focus-visible {
+a:focus-visible {
   outline: 2px solid var(--colour-accent);
   outline-offset: 3px;
 }
@@ -333,8 +317,8 @@ summary:focus-visible {
     max-height: 120px;
   }
 
-  .card {
-    padding: 14px;
+  .event-surface h1 {
+    font-size: 20px;
   }
 
   .action-grid {
