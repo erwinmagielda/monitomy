@@ -46,7 +46,7 @@
     </div>
 
     <p class="demo-description">
-      Logs visits, button clicks, bot indicators, and dashboard-ready records.
+      Event surface for generating visit and button records for the Monitomy dashboard.
     </p>
   </header>
 
@@ -65,8 +65,7 @@
       <h1 id="event-surface-title">Event Surface</h1>
 
       <p class="surface-note">
-        Clicking a button sends a tracked event to the PHP logger, stores it in MySQL,
-        and makes it visible in the Monitomy dashboard.
+        Clicking a button sends an event to the PHP logger, stores it in MySQL, and makes it visible in the dashboard.
       </p>
 
       <div class="action-grid">
@@ -105,14 +104,13 @@
     ----------------------------------------------------------- -->
 
     <section class="monitor-output" aria-label="Monitomy dashboard link">
+      <p>
+        Open the dashboard to review logged visits, button events, bot activity, and implemented controls.
+      </p>
+
       <a href="monitomy.php" class="monitor-link">
         Open Monitomy Dashboard
       </a>
-
-      <p>
-        Events generated here are submitted to the PHP logger, stored in MySQL,
-        and reviewed through the dashboard.
-      </p>
     </section>
 
   </main>

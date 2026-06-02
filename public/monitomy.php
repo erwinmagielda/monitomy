@@ -862,8 +862,8 @@ $recentVisits = fetchRows($mysqli, "
         Traffic Signal Monitor
       </div>
 
-      <p class="dashboard-description">
-        PHP/MySQL traffic monitor for visits, button events, bot indicators, and traffic signals.
+      <p class="dashboard-description">  
+        PHP/MySQL monitor for visits, button events, bot indicators, and traffic data.
       </p>
     </section>
 
