@@ -4,7 +4,7 @@
 --
 -- Purpose:
 -- Populates the Monitomy proof-of-concept with fake visit, click,
--- bot, engagement, and geolocation records.
+-- bot, and geolocation-cache records.
 --
 -- Safety:
 -- - Uses documentation/example IP ranges only.
@@ -34,13 +34,13 @@
 -- ------------------------------------------------------------
 
 INSERT INTO visits (ip, user_agent, geo, ts) VALUES
-  ('203.0.113.10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0 DemoBrowser/1.0', 'United Kingdom, London', NOW() - INTERVAL 13 DAY),
-  ('203.0.113.11', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2) AppleWebKit/605.1.15 Safari/605.1.15', 'United Kingdom, Manchester', NOW() - INTERVAL 12 DAY),
+  ('203.0.113.10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/122.0 DemoBrowser/1.0', 'United Kingdom, London', NOW() - INTERVAL 13 DAY),
+  ('203.0.113.11', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2) Safari/605.1.15', 'United Kingdom, Manchester', NOW() - INTERVAL 12 DAY),
   ('203.0.113.12', 'Mozilla/5.0 (X11; Linux x86_64) Firefox/123.0', 'Germany, Berlin', NOW() - INTERVAL 11 DAY),
   ('198.51.100.21', 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) Mobile Safari/604.1', 'United States, New York', NOW() - INTERVAL 10 DAY),
   ('198.51.100.22', 'Mozilla/5.0 (Android 14; Mobile) Chrome/122.0', 'Canada, Toronto', NOW() - INTERVAL 9 DAY),
 
-  ('203.0.113.10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0 DemoBrowser/1.0', 'United Kingdom, London', NOW() - INTERVAL 8 DAY),
+  ('203.0.113.10', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/122.0 DemoBrowser/1.0', 'United Kingdom, London', NOW() - INTERVAL 8 DAY),
   ('203.0.113.13', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/122.0', 'Netherlands, Amsterdam', NOW() - INTERVAL 7 DAY),
   ('198.51.100.23', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) Chrome/121.0', 'France, Paris', NOW() - INTERVAL 6 DAY),
   ('192.0.2.30', 'Mozilla/5.0 (X11; Linux x86_64) Firefox/122.0', 'Spain, Madrid', NOW() - INTERVAL 5 DAY),
@@ -68,26 +68,26 @@ INSERT INTO clicks (ip, button, ts) VALUES
   ('203.0.113.10', 'shop', NOW() - INTERVAL 13 DAY),
   ('203.0.113.11', 'subscribe', NOW() - INTERVAL 12 DAY),
   ('203.0.113.12', 'spotify', NOW() - INTERVAL 11 DAY),
-  ('198.51.100.21', 'bandcamp', NOW() - INTERVAL 10 DAY),
-  ('198.51.100.22', 'youtube', NOW() - INTERVAL 9 DAY),
+  ('198.51.100.21', 'shop', NOW() - INTERVAL 10 DAY),
+  ('198.51.100.22', 'subscribe', NOW() - INTERVAL 9 DAY),
 
-  ('203.0.113.10', 'album:Signal Alpha', NOW() - INTERVAL 8 DAY),
+  ('203.0.113.10', 'spotify', NOW() - INTERVAL 8 DAY),
   ('203.0.113.13', 'shop', NOW() - INTERVAL 7 DAY),
-  ('198.51.100.23', 'album:Signal Beta', NOW() - INTERVAL 6 DAY),
-  ('192.0.2.30', 'subscribe', NOW() - INTERVAL 5 DAY),
-  ('192.0.2.31', 'contact', NOW() - INTERVAL 4 DAY),
+  ('198.51.100.23', 'subscribe', NOW() - INTERVAL 6 DAY),
+  ('192.0.2.30', 'spotify', NOW() - INTERVAL 5 DAY),
+  ('192.0.2.31', 'shop', NOW() - INTERVAL 4 DAY),
 
-  ('203.0.113.14', 'album:Signal Gamma', NOW() - INTERVAL 3 DAY),
+  ('203.0.113.14', 'subscribe', NOW() - INTERVAL 3 DAY),
   ('203.0.113.15', 'shop', NOW() - INTERVAL 2 DAY),
   ('203.0.113.16', 'spotify', NOW() - INTERVAL 1 DAY),
-  ('203.0.113.17', 'album:Signal Alpha', NOW()),
+  ('203.0.113.17', 'shop', NOW()),
 
   -- Additional recent interactions for dashboard density.
   ('203.0.113.17', 'subscribe', NOW() - INTERVAL 3 HOUR),
   ('203.0.113.17', 'shop', NOW() - INTERVAL 2 HOUR),
-  ('203.0.113.16', 'contact', NOW() - INTERVAL 90 MINUTE),
-  ('203.0.113.15', 'album:Signal Beta', NOW() - INTERVAL 40 MINUTE),
-  ('203.0.113.14', 'bandcamp', NOW() - INTERVAL 20 MINUTE);
+  ('203.0.113.16', 'spotify', NOW() - INTERVAL 90 MINUTE),
+  ('203.0.113.15', 'subscribe', NOW() - INTERVAL 40 MINUTE),
+  ('203.0.113.14', 'shop', NOW() - INTERVAL 20 MINUTE);
 
 
 -- ------------------------------------------------------------

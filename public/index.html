@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Monitomy | Demo Surface</title>
+  <title>Monitomy | PoC Event Surface</title>
 
 
   <!-- ------------------------------------------------------------
@@ -32,7 +32,7 @@
        MONITOMY HEADER
   ------------------------------------------------------------- -->
 
-  <header class="demo-hero" aria-label="Monitomy Demo Surface">
+  <header class="demo-hero" aria-label="Monitomy PoC Event Surface">
     <img
       src="monitomy.webp"
       alt="Monitomy logo"
@@ -46,7 +46,8 @@
     </div>
 
     <p class="demo-description">
-      PHP/MySQL demo surface for visits, clicks, bot indicators, and release engagement.
+      Minimal PHP/MySQL proof-of-concept for logging visits, CTA clicks,
+      store intent, and external engagement.
     </p>
   </header>
 
@@ -58,135 +59,45 @@
   <main class="dashboard-grid">
 
     <!-- ----------------------------------------------------------
-         DEMO EVENT ACTIONS
+         EVENT SURFACE
     ----------------------------------------------------------- -->
 
     <details class="card full" open>
-      <summary><h2>Tracked Actions</h2></summary>
+      <summary><h2>PoC Event Surface</h2></summary>
 
       <p class="section-note">
-        These controls mirror the live tracking vocabulary while keeping the
-        public proof-of-concept separate from production traffic and real user data.
+        This small surface generates representative events for the Monitomy logger.
+        It mirrors the monitoring flow used by the live deployment without exposing
+        production traffic, release data, or the original website.
       </p>
 
       <div class="action-grid">
         <a
-          href="#demo-shop"
+          href="#shop"
           class="action-card primary-action"
           data-track="shop"
         >
           <span>Shop</span>
-          <small>Records a shop click</small>
+          <small>Commercial intent signal</small>
         </a>
 
         <a
-          href="#demo-subscribe"
+          href="#subscribe"
           class="action-card"
           data-track="subscribe"
         >
           <span>Subscribe</span>
-          <small>Records a subscription CTA click</small>
+          <small>Call-to-action signal</small>
         </a>
 
         <a
-          href="#demo-spotify"
+          href="#spotify"
           class="action-card"
           data-track="spotify"
         >
           <span>Spotify</span>
-          <small>Records a Spotify click</small>
+          <small>External engagement signal</small>
         </a>
-
-        <a
-          href="#demo-bandcamp"
-          class="action-card"
-          data-track="bandcamp"
-        >
-          <span>Bandcamp</span>
-          <small>Records a Bandcamp click</small>
-        </a>
-
-        <a
-          href="#demo-youtube"
-          class="action-card"
-          data-track="youtube"
-        >
-          <span>YouTube</span>
-          <small>Records a YouTube click</small>
-        </a>
-
-        <a
-          href="#demo-instagram"
-          class="action-card"
-          data-track="instagram"
-        >
-          <span>Instagram</span>
-          <small>Records an Instagram click</small>
-        </a>
-
-        <a
-          href="#demo-chains"
-          class="action-card"
-          data-track="chains"
-        >
-          <span>Chains</span>
-          <small>Records a related-store click</small>
-        </a>
-
-        <a
-          href="#demo-contact"
-          class="action-card"
-          data-track="contact"
-        >
-          <span>Contact</span>
-          <small>Records a contact click</small>
-        </a>
-      </div>
-    </details>
-
-
-    <!-- ----------------------------------------------------------
-         RELEASE ENGAGEMENT
-    ----------------------------------------------------------- -->
-
-    <details class="card full" open>
-      <summary><h2>Release Selection</h2></summary>
-
-      <p class="section-note">
-        Selecting a release records an album-style engagement event, matching
-        the format used by the live monitored landing page.
-      </p>
-
-      <div class="release-grid">
-        <button
-          type="button"
-          class="release-card active"
-          data-release="Release Alpha"
-        >
-          <span class="release-code">A1</span>
-          <strong>Release Alpha</strong>
-          <small>Primary release engagement sample</small>
-        </button>
-
-        <button
-          type="button"
-          class="release-card"
-          data-release="Release Beta"
-        >
-          <span class="release-code">B2</span>
-          <strong>Release Beta</strong>
-          <small>Secondary release engagement sample</small>
-        </button>
-
-        <button
-          type="button"
-          class="release-card"
-          data-release="Release Gamma"
-        >
-          <span class="release-code">C3</span>
-          <strong>Release Gamma</strong>
-          <small>Archive release engagement sample</small>
-        </button>
       </div>
     </details>
 
@@ -199,8 +110,8 @@
       <summary><h2>Monitor Output</h2></summary>
 
       <p class="section-note">
-        Events generated here are submitted to the PHP logger and reviewed through
-        the private Monitomy dashboard.
+        Events generated here are submitted to the PHP logger, stored in MySQL,
+        and reviewed through the Monitomy dashboard.
       </p>
 
       <a href="monitomy.php" class="monitor-link">
@@ -272,16 +183,6 @@
       document.querySelectorAll("[data-track]").forEach((element) => {
         element.addEventListener("click", () => {
           trackClick(element.dataset.track);
-        });
-      });
-
-      document.querySelectorAll("[data-release]").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.querySelector(".release-card.active")?.classList.remove("active");
-          button.classList.add("active");
-
-          const releaseName = button.dataset.release || "Unknown Release";
-          trackClick("album:" + releaseName);
         });
       });
     });

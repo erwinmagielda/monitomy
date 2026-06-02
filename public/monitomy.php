@@ -4,7 +4,8 @@
 
   Purpose:
   Provides visibility into visit activity, click events, bot indicators,
-  and engagement signals collected through a PHP/MySQL logging workflow.
+  geolocation cache data, and engagement signals collected through a
+  PHP/MySQL logging workflow.
 
   Data sources:
   - visits table: ip, ts, user_agent, geo
@@ -209,7 +210,7 @@ function getCoreMetrics(mysqli $mysqli): array {
   $shopClicks = fetchScalar($mysqli, "
     SELECT COUNT(*) AS c
     FROM clicks
-    WHERE button = 'shop' OR button = 'Shop'
+    WHERE LOWER(button) = 'shop'
   ");
 
   $realUsers = fetchScalar($mysqli, "
@@ -305,7 +306,8 @@ function getVisitChartData(mysqli $mysqli): array {
 
 
 // ------------------------------------------------------------
-// CONTROL 05: PRIVATE / RESERVED IP HANDLING
+// CONTROL 05: GEOLOCATION CACHE
+// CONTROL 06: PRIVATE / RESERVED IP HANDLING
 // ------------------------------------------------------------
 
 function getGeo(mysqli $mysqli, string $ip): array {
@@ -313,16 +315,6 @@ function getGeo(mysqli $mysqli, string $ip): array {
 
   if (isset($memoryCache[$ip])) {
     return $memoryCache[$ip];
-  }
-
-  if (
-    !filter_var($ip, FILTER_VALIDATE_IP) ||
-    filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false
-  ) {
-    return $memoryCache[$ip] = [
-      'country' => 'local',
-      'city' => '-'
-    ];
   }
 
   $select = $mysqli->prepare("
@@ -344,6 +336,16 @@ function getGeo(mysqli $mysqli, string $ip): array {
         'city' => $cachedGeo['city'] ?? '-'
       ];
     }
+  }
+
+  if (
+    !filter_var($ip, FILTER_VALIDATE_IP) ||
+    filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false
+  ) {
+    return $memoryCache[$ip] = [
+      'country' => 'local',
+      'city' => '-'
+    ];
   }
 
   $context = stream_context_create([
@@ -402,12 +404,12 @@ function formatClickAction(string $button): string {
 
   $labels = [
     'shop' => 'Shop',
+    'subscribe' => 'Subscribe',
     'spotify' => 'Spotify',
     'youtube' => 'YouTube',
     'bandcamp' => 'Bandcamp',
     'instagram' => 'Instagram',
     'chains' => 'Chains',
-    'subscribe' => 'Subscribe',
     'contact' => 'Contact'
   ];
 
@@ -425,7 +427,7 @@ function getImplementedControls(): array {
       'id' => 'C-01',
       'control' => 'Credential Separation',
       'scope' => 'Config',
-      'purpose' => 'Keeps real database and admin credentials outside Git-tracked source code.',
+      'purpose' => 'Keeps database and admin credentials outside application logic.',
       'state' => 'Implemented'
     ],
     [
@@ -488,7 +490,7 @@ function getImplementedControls(): array {
       'id' => 'C-10',
       'control' => 'Click Action Allowlisting',
       'scope' => 'Logger',
-      'purpose' => 'Stores unknown click actions as other instead of trusting arbitrary input.',
+      'purpose' => 'Normalises unknown click actions instead of trusting arbitrary input.',
       'state' => 'Implemented'
     ],
     [
@@ -514,13 +516,20 @@ function getImplementedControls(): array {
     ],
     [
       'id' => 'C-14',
+      'control' => 'Geolocation Cache',
+      'scope' => 'Database',
+      'purpose' => 'Stores resolved geolocation data to reduce repeated external lookups.',
+      'state' => 'Implemented'
+    ],
+    [
+      'id' => 'C-15',
       'control' => 'Private IP Handling',
       'scope' => 'Geolocation',
       'purpose' => 'Avoids external geolocation lookups for private, reserved, or invalid IPs.',
       'state' => 'Implemented'
     ],
     [
-      'id' => 'C-15',
+      'id' => 'C-16',
       'control' => 'Database Error Suppression',
       'scope' => 'System',
       'purpose' => 'Prevents raw database errors from being displayed to visitors.',

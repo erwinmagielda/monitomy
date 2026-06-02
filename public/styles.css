@@ -1,9 +1,9 @@
 /*
-  Monitomy | Demo Surface Stylesheet
+  Monitomy | PoC Event Surface Stylesheet
 
   Purpose:
-  Styles the public proof-of-concept surface used to generate visit,
-  click, and release-engagement events for the Monitomy dashboard.
+  Styles the minimal public proof-of-concept surface used to generate
+  representative visit and click events for the Monitomy dashboard.
 */
 
 
@@ -31,13 +31,12 @@
   --colour-text: #eeeeee;
   --colour-muted: #aaaaaa;
   --colour-accent: #fed002;
-  --colour-real: #4caf50;
 
   --radius-card: 12px;
   --radius-panel: 10px;
   --radius-pill: 999px;
 
-  --content-width: min(1100px, calc(100% - 32px));
+  --content-width: min(900px, calc(100% - 32px));
   --transition-fast: 150ms ease;
 }
 
@@ -161,12 +160,12 @@ h2 {
 
 .action-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
 .action-card {
-  min-height: 96px;
+  min-height: 104px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -207,70 +206,6 @@ h2 {
   box-shadow:
     0 0 18px rgba(254, 208, 2, 0.12),
     0 0 44px rgba(254, 208, 2, 0.05);
-}
-
-
-/* ------------------------------------------------------------
-   RELEASE SELECTION
------------------------------------------------------------- */
-
-.release-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
-}
-
-.release-card {
-  min-height: 116px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 14px;
-  border: 1px solid var(--colour-line);
-  border-radius: var(--radius-panel);
-  background: var(--colour-panel);
-  color: var(--colour-text);
-  cursor: pointer;
-  text-align: left;
-  transition:
-    transform var(--transition-fast),
-    border-color var(--transition-fast),
-    background var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
-
-.release-card:hover,
-.release-card:active,
-.release-card.active {
-  transform: translateY(-2px);
-  border-color: rgba(254, 208, 2, 0.62);
-  background: var(--colour-panel-soft);
-  box-shadow: 0 0 24px rgba(254, 208, 2, 0.08);
-}
-
-.release-code {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 38px;
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid rgba(254, 208, 2, 0.45);
-  border-radius: var(--radius-pill);
-  color: var(--colour-accent);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-}
-
-.release-card strong {
-  font-size: 18px;
-}
-
-.release-card small {
-  color: var(--colour-muted);
-  font-size: 12px;
 }
 
 
@@ -317,7 +252,6 @@ h2 {
 ------------------------------------------------------------ */
 
 a:focus-visible,
-button:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--colour-accent);
   outline-offset: 3px;
@@ -366,7 +300,7 @@ summary:focus-visible {
 
 @media (max-width: 720px) {
   :root {
-    --content-width: min(100% - 24px, 1100px);
+    --content-width: min(100% - 24px, 900px);
   }
 
   .demo-hero {
@@ -382,8 +316,11 @@ summary:focus-visible {
     padding: 14px;
   }
 
-  .action-card,
-  .release-card {
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-card {
     min-height: auto;
   }
 
